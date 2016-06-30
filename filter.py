@@ -1,17 +1,28 @@
 #!/usr/bin/env python3
 
 import sys
+import time
 import struct
 
 def emit_pre ():
 
-    out  = b'W_Bit'
-    out += b'MJPEG'
-    out += struct.pack('<I', 12)
-    out += struct.pack('<I', 0)
-    out += struct.pack('<I', 0)
+    data  = b'W_Bit'
 
-    sys.stdout.buffer.write(out)
+    sys.stdout.buffer.write(data)
+    sys.stdout.flush()
+
+    time.sleep(0.1)
+
+    data  = b'MJPEG'
+    data += struct.pack('<I', 12)
+    data += struct.pack('<I', 0)
+    data += struct.pack('<I', 2)
+
+    sys.stdout.buffer.write(data)
+    sys.stdout.buffer.write(data)
+    sys.stdout.flush()
+
+    time.sleep(0.1)
 
 def emit_frame (frame, num):
 
@@ -22,6 +33,9 @@ def emit_frame (frame, num):
 
     sys.stdout.buffer.write(header)
     sys.stdout.buffer.write(frame)
+    sys.stdout.flush()
+
+    time.sleep(0.083) # 12 fps
 
 def main ():
 
@@ -49,6 +63,8 @@ def main ():
             frame_num += 1
 
             frame = data[start:]
+
+    # TODO: handle last frame
 
 main()
 
