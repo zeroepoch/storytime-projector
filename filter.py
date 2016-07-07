@@ -35,8 +35,6 @@ def emit_frame (frame, num):
     sys.stdout.buffer.write(frame)
     sys.stdout.flush()
 
-    time.sleep(0.083) # 12 fps
-
 def main ():
 
     frame = bytes()
