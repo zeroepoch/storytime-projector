@@ -5,6 +5,8 @@ import time
 import struct
 import subprocess
 
+# TODO: check for PIL lib
+
 import PIL.Image
 
 FRAME_WIDTH = 320
